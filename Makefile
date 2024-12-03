@@ -50,13 +50,18 @@ compose-down:
 		--no-sample \
 		--provisioners https://raw.githubusercontent.com/score-spec/community-provisioners/refs/heads/main/score-k8s/00-service.provisioners.yaml
 
-manifests.yaml: apps/makeline/score.yaml apps/order/score.yaml apps/product/score.yaml apps/store-admin/score.yaml apps/store-front/score.yaml .score-k8s/state.yaml Makefile
+manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingress/score.yaml apps/people-service/score.yaml apps/position-service/score.yaml apps/reference-data/score.yaml apps/trade-feed/score.yaml apps/trade-processor/score.yaml apps/trade-service/score.yaml apps/web-frontend/score.yaml .score-k8s/state.yaml Makefile
 	score-k8s generate \
-		apps/makeline/score.yaml \
-		apps/order/score.yaml \
-		apps/product/score.yaml \
-		apps/store-admin/score.yaml \
-		apps/store-front/score.yaml
+		apps/account-service/score.yaml \
+		apps/database/score.yaml \
+		apps/ingress/score.yaml \
+		apps/people-service/score.yaml \
+		apps/position-service/score.yaml \
+		apps/reference-data/score.yaml \
+		apps/trade-feed/score.yaml \
+		apps/trade-processor/score.yaml \
+		apps/trade-service/score.yaml \
+		apps/web-frontend/score.yaml
 
 ## Create a local Kind cluster.
 .PHONY: kind-create-cluster
@@ -70,13 +75,13 @@ k8s-up: manifests.yaml
 	kubectl apply \
 		-f manifests.yaml \
 		-n ${NAMESPACE}
-	kubectl wait deployments/store-front \
+	kubectl wait deployments/ingress \
 		-n ${NAMESPACE} \
 		--for condition=Available \
 		--timeout=90s
 	kubectl wait pods \
 		-n ${NAMESPACE} \
-		-l app.kubernetes.io/name=store-front \
+		-l app.kubernetes.io/name=ingress \
 		--for condition=Ready \
 		--timeout=90s
 

@@ -3,7 +3,7 @@ metadata:
   name: web-frontend
 containers:
   web-frontend:
-    image: ghcr.io/finos/traderx/web-frontend:latest
+    image: ghcr.io/finos/traderx/web-front-end-angular:latest
     variables:
       DATABASE_TCP_HOST: "${resources.database.name}"
 service:
