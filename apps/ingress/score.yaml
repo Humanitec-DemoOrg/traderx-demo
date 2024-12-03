@@ -1,0 +1,30 @@
+apiVersion: score.dev/v1b1
+metadata:
+  name: ingress
+containers:
+  ingress:
+    image: ghcr.io/finos/traderx/ingress:latest
+    variables:
+      DATABASE_TCP_HOST: "${resources.database.name}"
+service:
+  ports:
+    web:
+      port: 8080
+      targetPort: 8080
+resources:
+  people-service:
+    type: service
+  trade-service:
+    type: service
+  account-service:
+    type: service
+  reference-data:
+    type: service
+  trade-feed:
+    type: service
+  trade-processor:
+    type: service
+  web-frontend:
+    type: service
+  database:
+    type: service

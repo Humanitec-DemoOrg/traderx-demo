@@ -1,0 +1,11 @@
+apiVersion: score.dev/v1b1
+metadata:
+  name: trade-feed
+containers:
+  trade-feed:
+    image: ghcr.io/finos/traderx/trade-feed:latest
+service:
+  ports:
+    web:
+      port: 18086
+      targetPort: 18086
