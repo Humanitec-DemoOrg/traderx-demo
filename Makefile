@@ -20,7 +20,6 @@ compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingr
 	score-compose generate \
 		apps/account-service/score.yaml \
 		apps/database/score.yaml \
-		apps/ingress/score.yaml \
 		apps/people-service/score.yaml \
 		apps/position-service/score.yaml \
 		apps/reference-data/score.yaml \
@@ -28,6 +27,9 @@ compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingr
 		apps/trade-processor/score.yaml \
 		apps/trade-service/score.yaml \
 		apps/web-frontend/score.yaml
+	score-compose generate \
+		apps/ingress/score.yaml \
+		--build 'ingress={"context":"apps/ingress/","tags":["ingress:local"]}'
 
 ## Generate a compose.yaml file from the score specs and launch it.
 .PHONY: compose-up

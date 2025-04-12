@@ -3,7 +3,7 @@ metadata:
   name: ingress
 containers:
   ingress:
-    image: ghcr.io/finos/traderx/ingress:latest
+    image: .
     variables:
       DATABASE_TCP_HOST: "${resources.database.name}"
 service:
@@ -28,3 +28,11 @@ resources:
     type: service
   database:
     type: service
+  dns:
+    type: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /
+      port: 8080

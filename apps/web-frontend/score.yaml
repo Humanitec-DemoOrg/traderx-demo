@@ -16,11 +16,3 @@ resources:
     type: service
   database:
     type: service
-  dns:
-    type: dns
-  route:
-    type: route
-    params:
-      host: ${resources.dns.host}
-      path: /
-      port: 18093

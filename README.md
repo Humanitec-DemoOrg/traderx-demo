@@ -15,6 +15,26 @@ make compose-up
 make compose-test
 ```
 
+Working:
+```bash
+curl http://localhost:8080/people-service/People/GetPerson?LogonId=user01
+
+curl http://localhost:8080/reference-data/api
+curl http://localhost:8080/reference-data/stocks
+curl http://localhost:8080/reference-data/stocks/MMM
+
+curl http://localhost:8080/trade-feed/
+
+curl http://localhost:8080/position-service/trades/22214
+curl http://localhost:8080/position-service/positions/22214
+```
+
+Failing:
+```bash
+curl http://localhost:8080/position-service/swagger-ui/index.html
+curl http://localhost:8080/trade-processor/swagger-ui/index.html
+```
+
 ## Local deployment with Kind cluster
 
 Deploy and test locally with Kind cluster:
