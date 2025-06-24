@@ -11,7 +11,7 @@ containers:
       PEOPLE_SERVICE_HOST: "${resources.people-service.name}"
       ACCOUNT_SERVICE_HOST: "${resources.account-service.name}"
       REFERENCE_DATA_HOST: "${resources.reference-data.name}"
-      TRADE_FEED_HOST: "${resources.trade-service.name}"
+      TRADE_FEED_HOST: "${resources.trade-feed.name}"
 service:
   ports:
     web:
@@ -20,7 +20,7 @@ service:
 resources:
   people-service:
     type: service
-  trade-service:
+  trade-feed:
     type: service
   account-service:
     type: service

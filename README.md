@@ -28,7 +28,7 @@ flowchart TD
         trade-service-->database
         trade-service-->people-service
         trade-service-->reference-data
-        trade-service-->trade-service
+        trade-service-->trade-feed
     end
 ```
 

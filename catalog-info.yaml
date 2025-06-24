@@ -219,7 +219,7 @@ spec:
         - component:traderx-demo-database
         - component:traderx-demo-people-service
         - component:traderx-demo-reference-data
-        - component:traderx-demo-trade-service
+        - component:traderx-demo-trade-feed
     lifecycle: experimental
     owner: user:guest
     system: traderx-demo
