@@ -1,6 +1,8 @@
 apiVersion: score.dev/v1b1
 metadata:
   name: people-service
+  annotations:
+    tags: "dotnet"
 containers:
   people-service:
     image: ghcr.io/finos/traderx/people-service:latest
