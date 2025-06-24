@@ -1,6 +1,8 @@
 apiVersion: score.dev/v1b1
 metadata:
   name: database
+  annotations:
+    tags: "java,h2"
 containers:
   database:
     image: ghcr.io/finos/traderx/database:latest

@@ -1,0 +1,266 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: traderx-demo
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo
+spec:
+    owner: user:guest
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: account-service
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-account-service
+    tags:
+        - java
+        - spring
+    title: account-service
+spec:
+    dependsOn:
+        - component:traderx-demo-database
+        - component:traderx-demo-people-service
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: database
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-database
+    tags:
+        - java
+        - h2
+    title: database
+spec:
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: ingress
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-ingress
+    tags:
+        - nginx
+        - ingress
+    title: ingress
+spec:
+    dependsOn:
+        - component:traderx-demo-account-service
+        - component:traderx-demo-database
+        - resource:traderx-demo-ingress-dns
+        - component:traderx-demo-people-service
+        - component:traderx-demo-reference-data
+        - component:traderx-demo-trade-feed
+        - component:traderx-demo-trade-processor
+        - component:traderx-demo-trade-service
+        - component:traderx-demo-web-frontend
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: people-service
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-people-service
+    tags:
+        - dotnet
+    title: people-service
+spec:
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: position-service
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-position-service
+    tags:
+        - java
+        - spring
+    title: position-service
+spec:
+    dependsOn:
+        - component:traderx-demo-database
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: reference-data
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-reference-data
+    tags:
+        - nodejs
+        - nestjs
+    title: reference-data
+spec:
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: trade-feed
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-trade-feed
+    tags:
+        - nodejs
+        - socketio
+    title: trade-feed
+spec:
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: trade-processor
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-trade-processor
+    tags:
+        - java
+        - spring
+    title: trade-processor
+spec:
+    dependsOn:
+        - component:traderx-demo-database
+        - component:traderx-demo-trade-feed
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: trade-service
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-trade-service
+    tags:
+        - java
+        - spring
+    title: trade-service
+spec:
+    dependsOn:
+        - component:traderx-demo-account-service
+        - component:traderx-demo-database
+        - component:traderx-demo-people-service
+        - component:traderx-demo-reference-data
+        - component:traderx-demo-trade-service
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    annotations:
+        github.com/project-slug: Humanitec-DemoOrg/traderx-demo
+    description: web-frontend
+    links:
+        - icon: github
+          title: Repository
+          url: https://github.com/Humanitec-DemoOrg/traderx-demo
+    name: traderx-demo-web-frontend
+    tags:
+        - html
+        - website
+        - ui
+        - css
+        - javascript
+        - angular
+        - react
+    title: web-frontend
+spec:
+    dependsOn:
+        - component:traderx-demo-database
+        - component:traderx-demo-trade-feed
+    lifecycle: experimental
+    owner: user:guest
+    system: traderx-demo
+    type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+    description: traderx-demo-ingress-dns
+    name: traderx-demo-ingress-dns
+    title: dns
+spec:
+    owner: user:guest
+    system: traderx-demo
+    type: dns

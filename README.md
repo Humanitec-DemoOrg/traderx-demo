@@ -4,7 +4,33 @@ Get the [finos/traderX](https://github.com/finos/traderX) to Score and Humanitec
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Humanitec-DemoOrg/traderx-demo)
 
-![](docs/traderx-architecture.png)
+```mermaid
+flowchart TD
+    dns[DNS] --> ingress(ingress)
+    subgraph Workloads
+        ingress-->reference-data(reference-data)
+        ingress-->trade-service(trade-service)
+        ingress-->trade-feed(trade-feed)
+        ingress-->trade-processor(trade-processor)
+        ingress-->web-frontend(web-frontend)
+        ingress-->position-service(position-service)
+        ingress-->people-service(people-service)
+        ingress-->account-service(account-service)
+        ingress-->database[(database)]
+        web-frontend-->trade-feed
+        web-frontend-->database
+        account-service-->people-service
+        account-service-->database
+        position-service-->database
+        trade-processor-->trade-feed
+        trade-processor-->database
+        trade-service-->account-service
+        trade-service-->database
+        trade-service-->people-service
+        trade-service-->reference-data
+        trade-service-->trade-service
+    end
+```
 
 ## Local deployment with Docker Compose
 

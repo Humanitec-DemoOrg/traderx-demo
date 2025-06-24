@@ -1,6 +1,8 @@
 apiVersion: score.dev/v1b1
 metadata:
   name: account-service
+  annotations:
+    tags: "java,spring"
 containers:
   account-service:
     image: ghcr.io/finos/traderx/account-service:latest

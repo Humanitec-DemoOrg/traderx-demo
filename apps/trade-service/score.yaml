@@ -1,6 +1,8 @@
 apiVersion: score.dev/v1b1
 metadata:
   name: trade-service
+  annotations:
+    tags: "java,spring"
 containers:
   trade-service:
     image: ghcr.io/finos/traderx/trade-service:latest
