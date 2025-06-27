@@ -40,7 +40,7 @@ compose-up: compose.yaml
 .PHONY: compose-test
 compose-test: compose-up
 	sleep 5
-	curl $$(score-compose resources get-outputs 'dns.default#store-front.dns' --format '{{ .host }}:8080')
+	curl $$(score-compose resources get-outputs 'dns.default#ingress.dns' --format '{{ .host }}:8080')
 
 ## Delete the containers running via compose down.
 .PHONY: compose-down
@@ -56,7 +56,6 @@ manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/in
 	score-k8s generate \
 		apps/account-service/score.yaml \
 		apps/database/score.yaml \
-		apps/ingress/score.yaml \
 		apps/people-service/score.yaml \
 		apps/position-service/score.yaml \
 		apps/reference-data/score.yaml \
@@ -64,6 +63,9 @@ manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/in
 		apps/trade-processor/score.yaml \
 		apps/trade-service/score.yaml \
 		apps/web-frontend/score.yaml
+	score-k8s generate \
+		apps/ingress/score.yaml \
+		--image ingress:local
 
 ## Create a local Kind cluster.
 .PHONY: kind-create-cluster
@@ -90,7 +92,7 @@ k8s-up: manifests.yaml
 ## Expose the container deployed in Kubernetes via port-forward.
 .PHONY: k8s-test
 k8s-test: k8s-up
-	curl $$(score-k8s resources get-outputs dns.default#store-front.dns --format '{{ .host }}')
+	curl $$(score-k8s resources get-outputs dns.default#ingress.dns --format '{{ .host }}')
 
 ## Delete the deployment of the local container in Kubernetes.
 .PHONY: k8s-down
