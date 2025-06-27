@@ -72,6 +72,11 @@ manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/in
 kind-create-cluster:
 	./scripts/setup-kind-cluster.sh
 
+## Load the local container image in the current Kind cluster.
+.PHONY: kind-load-image
+kind-load-image:
+	kind load docker-image ingress:local
+
 NAMESPACE ?= default
 ## Generate a manifests.yaml file from the score spec and apply it in Kubernetes.
 .PHONY: k8s-up
