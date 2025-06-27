@@ -1,0 +1,12 @@
+apiVersion: config.humanitec.io/v1b1
+kind: ScoreDeployConfig
+workloads:
+  - specFile: ./database/score.yaml
+  - specFile: ./reference-data/score.yaml
+  - specFile: ./trade-feed/score.yaml
+  - specFile: ./account-service/score.yaml
+  - specFile: ./position-service/score.yaml
+  - specFile: ./trade-processor/score.yaml
+  - specFile: ./trade-service/score.yaml
+  - specFile: ./web-frontend/score.yaml
+  - specFile: ./ingress/score.yaml
