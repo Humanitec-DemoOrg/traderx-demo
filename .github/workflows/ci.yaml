@@ -56,10 +56,13 @@ jobs:
       - name: make kind-create-cluster
         run: |
           make kind-create-cluster
+      - name: build and load ingress:local
+        run: |
+          docker build -t ingress:local ./apps/ingress/
+          make kind-load-image
       - name: make k8s-up
         id: k8s-up
         run: |
-          make kind-load-image
           make k8s-up
       - name: catch k8s-up errors
         if: ${{ failure() && steps.k8s-up.outcome == 'failure' }}
