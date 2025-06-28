@@ -27,9 +27,6 @@ compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingr
 		apps/trade-processor/score.yaml \
 		apps/trade-service/score.yaml \
 		apps/web-frontend/score.yaml
-	score-compose generate \
-		apps/ingress/score.yaml \
-		--build 'ingress={"context":"apps/ingress/","tags":["ingress:local"]}'
 
 ## Generate a compose.yaml file from the score specs and launch it.
 .PHONY: compose-up
@@ -127,10 +124,3 @@ generate-catalog-info:
 		apps/trade-service/score.yaml \
 		apps/web-frontend/score.yaml
 		--output catalog-info.yaml
-	score-k8s generate \
-		--namespace traderx-demo \
-		--generate-namespace \
-		apps/ingress/score.yaml \
-		--image ingress:local \
-		--output catalog-info.yaml
-	sed 's,$$GITHUB_REPO,Humanitec-DemoOrg/traderx-demo,g' -i catalog-info.yaml
