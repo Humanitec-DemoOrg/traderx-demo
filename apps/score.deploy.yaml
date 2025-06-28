@@ -9,4 +9,3 @@ workloads:
   - specFile: ./trade-processor/score.yaml
   - specFile: ./trade-service/score.yaml
   - specFile: ./web-frontend/score.yaml
-  - specFile: ./ingress/score.yaml
