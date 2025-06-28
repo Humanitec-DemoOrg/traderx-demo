@@ -19,3 +19,12 @@ resources:
     type: service
   database:
     type: service
+  dns:
+    type: dns
+    id: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /account-service/
+      port: 18088
