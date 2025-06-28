@@ -18,3 +18,19 @@ resources:
     type: service
   database:
     type: service
+  dns:
+    type: dns
+    id: dns
+  ng-cli-ws-route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /ng-cli-ws
+      port: 18093
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /
+      port: 18093
+  

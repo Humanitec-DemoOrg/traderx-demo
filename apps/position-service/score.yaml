@@ -16,3 +16,14 @@ service:
 resources:
   database:
     type: service
+  dns:
+    type: dns
+    id: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /position-service/
+      port: 18090
+
+    

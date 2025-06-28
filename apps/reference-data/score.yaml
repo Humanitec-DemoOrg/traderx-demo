@@ -11,3 +11,13 @@ service:
     web:
       port: 18085
       targetPort: 18085
+resources:
+  dns:
+    type: dns
+    id: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /reference-data/
+      port: 18085

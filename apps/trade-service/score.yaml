@@ -28,3 +28,12 @@ resources:
     type: service
   database:
     type: service
+  dns:
+    type: dns
+    id: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /trade-service/
+      port: 18092

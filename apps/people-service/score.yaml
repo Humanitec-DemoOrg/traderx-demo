@@ -10,4 +10,14 @@ service:
   ports:
     web:
       port: 18089
-      targetPort: 18089
+      targetPort: 18089     
+resources:
+  dns:
+    type: dns
+    id: dns
+  route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /people-service/
+      port: 18089

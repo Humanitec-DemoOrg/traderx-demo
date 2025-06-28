@@ -11,3 +11,19 @@ service:
     web:
       port: 18086
       targetPort: 18086
+resources:
+  dns:
+    type: dns
+    id: dns
+  trade-feed-route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /trade-feed/
+      port: 18086
+  socket-io-route:
+    type: route
+    params:
+      host: ${resources.dns.host}
+      path: /socket.io/
+      port: 18086
