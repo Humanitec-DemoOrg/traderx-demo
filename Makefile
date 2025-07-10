@@ -53,7 +53,6 @@ manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/pe
 	score-k8s generate \
 		apps/account-service/score.yaml \
 		apps/database/score.yaml \
-		apps/ingress/score.yaml \
 		apps/people-service/score.yaml \
 		apps/position-service/score.yaml \
 		apps/reference-data/score.yaml \
@@ -61,11 +60,19 @@ manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/pe
 		apps/trade-processor/score.yaml \
 		apps/trade-service/score.yaml \
 		apps/web-frontend/score.yaml
+	score-k8s generate \
+		apps/ingress/score.yaml \
+		--image ingress:local
 
 ## Create a local Kind cluster.
 .PHONY: kind-create-cluster
 kind-create-cluster:
 	./scripts/setup-kind-cluster.sh
+
+## Load the local container image in the current Kind cluster.
+.PHONY: kind-load-image
+kind-load-image:
+	kind load docker-image ingress:local
 
 NAMESPACE ?= default
 ## Generate a manifests.yaml file from the score spec and apply it in Kubernetes.

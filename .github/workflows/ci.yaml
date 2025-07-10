@@ -29,6 +29,7 @@ jobs:
         uses: humanitec/setup-cli-action@v1
         with:
           version: ${{ env.HUMCTL_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: humctl score validate
         run: |
           humctl score validate apps/${{ matrix.apps }}/score.yaml \
@@ -66,6 +67,10 @@ jobs:
       - name: make kind-create-cluster
         run: |
           make kind-create-cluster
+      - name: build and load ingress:local
+        run: |
+          docker build -t ingress:local ./apps/ingress/
+          make kind-load-image
       - name: make k8s-up
         id: k8s-up
         run: |
