@@ -14,9 +14,9 @@ help:
 .score-compose/state.yaml:
 	score-compose init \
 		--no-sample \
-		--provisioners https://raw.githubusercontent.com/score-spec/community-provisioners/refs/heads/main/score-compose/10-service.provisioners.yaml
+		--provisioners https://raw.githubusercontent.com/score-spec/community-provisioners/refs/heads/main/service/score-compose/10-service.provisioners.yaml
 
-compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingress/score.yaml apps/people-service/score.yaml apps/position-service/score.yaml apps/reference-data/score.yaml apps/trade-feed/score.yaml apps/trade-processor/score.yaml apps/trade-service/score.yaml apps/web-frontend/score.yaml .score-compose/state.yaml Makefile
+compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/people-service/score.yaml apps/position-service/score.yaml apps/reference-data/score.yaml apps/trade-feed/score.yaml apps/trade-processor/score.yaml apps/trade-service/score.yaml apps/web-frontend/score.yaml .score-compose/state.yaml Makefile
 	score-compose generate \
 		apps/account-service/score.yaml \
 		apps/database/score.yaml \
@@ -31,13 +31,13 @@ compose.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingr
 ## Generate a compose.yaml file from the score specs and launch it.
 .PHONY: compose-up
 compose-up: compose.yaml
-	docker compose up --build -d --remove-orphans
+	docker compose up -d --remove-orphans
 
 ## Generate a compose.yaml file from the score spec, launch it and test (curl) the exposed container.
 .PHONY: compose-test
 compose-test: compose-up
 	sleep 5
-	curl $$(score-compose resources get-outputs 'dns.default#store-front.dns' --format '{{ .host }}:8080')
+	curl $$(score-compose resources get-outputs 'dns.default#dns' --format '{{ .host }}:8080')
 
 ## Delete the containers running via compose down.
 .PHONY: compose-down
@@ -47,9 +47,9 @@ compose-down:
 .score-k8s/state.yaml:
 	score-k8s init \
 		--no-sample \
-		--provisioners https://raw.githubusercontent.com/score-spec/community-provisioners/refs/heads/main/score-k8s/10-service.provisioners.yaml
+		--provisioners https://raw.githubusercontent.com/score-spec/community-provisioners/refs/heads/main/service/score-k8s/10-service.provisioners.yaml
 
-manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/ingress/score.yaml apps/people-service/score.yaml apps/position-service/score.yaml apps/reference-data/score.yaml apps/trade-feed/score.yaml apps/trade-processor/score.yaml apps/trade-service/score.yaml apps/web-frontend/score.yaml .score-k8s/state.yaml Makefile
+manifests.yaml: apps/account-service/score.yaml apps/database/score.yaml apps/people-service/score.yaml apps/position-service/score.yaml apps/reference-data/score.yaml apps/trade-feed/score.yaml apps/trade-processor/score.yaml apps/trade-service/score.yaml apps/web-frontend/score.yaml .score-k8s/state.yaml Makefile
 	score-k8s generate \
 		apps/account-service/score.yaml \
 		apps/database/score.yaml \
@@ -74,10 +74,6 @@ k8s-up: manifests.yaml
 	kubectl apply \
 		-f manifests.yaml \
 		-n ${NAMESPACE}
-	kubectl wait deployments/ingress \
-		-n ${NAMESPACE} \
-		--for condition=Available \
-		--timeout=90s
 	kubectl wait pods \
 		-n ${NAMESPACE} \
 		-l app.kubernetes.io/name=ingress \
@@ -87,7 +83,7 @@ k8s-up: manifests.yaml
 ## Expose the container deployed in Kubernetes via port-forward.
 .PHONY: k8s-test
 k8s-test: k8s-up
-	curl $$(score-k8s resources get-outputs dns.default#store-front.dns --format '{{ .host }}')
+	curl $$(score-k8s resources get-outputs dns.default#dns --format '{{ .host }}')
 
 ## Delete the deployment of the local container in Kubernetes.
 .PHONY: k8s-down

@@ -18,7 +18,6 @@ jobs:
           - trade-processor
           - trade-service
           - web-frontend
-          - ingress
       fail-fast: false
     runs-on: ubuntu-24.04
     env:
