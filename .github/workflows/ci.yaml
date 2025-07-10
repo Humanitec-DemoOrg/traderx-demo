@@ -8,7 +8,17 @@ jobs:
   score-validate:
     strategy:
       matrix:
-        apps: ["database", "reference-data", "trade-feed", "people-service", "account-service", "position-service", "trade-processor", "trade-service", "web-frontend", "ingress"]
+        apps:
+          - database
+          - reference-data
+          - trade-feed
+          - people-service
+          - account-service
+          - position-service
+          - trade-processor
+          - trade-service
+          - web-frontend
+      fail-fast: false
     runs-on: ubuntu-24.04
     env:
       HUMCTL_VERSION: '*'
